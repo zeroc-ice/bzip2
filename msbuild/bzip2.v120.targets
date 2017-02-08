@@ -16,6 +16,9 @@
         <Copy SourceFiles="$(MSBuildThisFileDirectory)\bin\$(Platform)\$(Configuration)\bzip2$(_Bzip2LibSuffix).dll"
               DestinationFolder="$(OutDir)"
               SkipUnchangedFiles="true"/>
+        <Copy SourceFiles="$(MSBuildThisFileDirectory)\bin\$(Platform)\$(Configuration)\bzip2$(_Bzip2LibSuffix).pdb"
+              DestinationFolder="$(OutDir)"
+              SkipUnchangedFiles="true"/>
     </Target>
     <Target Name="Bzip2_RemoveDlls" BeforeTargets="Clean" Condition="'$(PlatformToolset)' == 'v120'">
         <Delete Files="$(OutDir)\bzip2$(_Bzip2LibSuffix).dll"/>
