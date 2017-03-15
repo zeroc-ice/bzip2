@@ -83,10 +83,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <ImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)libbz2d.lib</ImportLibrary>
-    </Link>
-    <Link>
-      <ImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)libbz2d.lib</ImportLibrary>
+      <ImportLibrary>$(OutDir)libbz2d.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
@@ -97,12 +94,34 @@
       <DebugInformationFormat Condition="'$(DefaultPlatformToolset)' != 'v100'">ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <ImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)libbz2.lib</ImportLibrary>
-    </Link>
-    <Link>
-      <ImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)libbz2.lib</ImportLibrary>
+      <ImportLibrary>$(OutDir)libbz2.lib</ImportLibrary>
     </Link>
   </ItemDefinitionGroup>
+
+  <!--
+      GenerateDebugInformation supported values change from v120 to v140 and v141,
+      we set it conditionally to the platform tool set.
+  -->
+  <ItemDefinitionGroup Condition="'$(DefaultPlatformToolset)'=='v140'">
+    <Link>
+      <FullProgramDatabaseFile>true</FullProgramDatabaseFile>
+      <GenerateDebugInformation>Debug</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <ItemDefinitionGroup Condition="'$(DefaultPlatformToolset)'=='v141'">
+    <Link>
+      <FullProgramDatabaseFile>true</FullProgramDatabaseFile>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <ItemDefinitionGroup Condition="'$(DefaultPlatformToolset)'=='v120'">
+    <Link>
+      <GenerateDebugInformation>Yes</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+
   <ItemGroup>
     <ClCompile Include="..\blocksort.c" />
     <ClCompile Include="..\huffman.c" />
