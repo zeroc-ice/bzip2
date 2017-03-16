@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>bzip2.v120</id>
-    <version>1.0.6.4</version>
+    <version>1.0.6.5</version>
     <authors>Julian Seward, Tim Rogers</authors>
     <licenseUrl>https://zeroc.com/download/bzip2/LICENSE</licenseUrl>
     <projectUrl>http://www.bzip.org</projectUrl>
