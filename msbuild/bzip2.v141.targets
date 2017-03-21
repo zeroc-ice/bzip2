@@ -12,7 +12,7 @@
             <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
         </Link>
     </ItemDefinitionGroup>
-    <Target Name="Bzip2_CopyDLLs" AfterTargets="Build" Condition="'$(PlatformToolset)' == 'v141'">
+    <Target Name="Bzip2_CopyDLLs_v141" AfterTargets="Build" Condition="'$(PlatformToolset)' == 'v141'">
         <Copy SourceFiles="$(MSBuildThisFileDirectory)\bin\$(Platform)\$(Configuration)\bzip2$(_Bzip2LibSuffix).dll"
               DestinationFolder="$(OutDir)"
               SkipUnchangedFiles="true"/>
@@ -20,7 +20,7 @@
               DestinationFolder="$(OutDir)"
               SkipUnchangedFiles="true"/>
     </Target>
-    <Target Name="Bzip2_RemoveDlls" BeforeTargets="Clean" Condition="'$(PlatformToolset)' == 'v141'">
+    <Target Name="Bzip2_RemoveDlls_v141" BeforeTargets="Clean" Condition="'$(PlatformToolset)' == 'v141'">
         <Delete Files="$(OutDir)\bzip2$(_Bzip2LibSuffix).dll"/>
     </Target>
 </Project>
