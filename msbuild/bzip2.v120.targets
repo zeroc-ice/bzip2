@@ -1,26 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <PropertyGroup Condition="'$(PlatformToolset)' == 'v120' And '$(Configuration)' == 'Debug'">
-        <_Bzip2LibSuffix>d</_Bzip2LibSuffix>
-    </PropertyGroup>
     <ItemDefinitionGroup Condition="'$(PlatformToolset)' == 'v120'">
         <ClCompile>
             <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
         </ClCompile>
-        <Link>
-            <AdditionalDependencies>libbz2$(_Bzip2LibSuffix).lib;%(AdditionalDependencies)</AdditionalDependencies>
-            <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)lib\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-        </Link>
     </ItemDefinitionGroup>
-    <Target Name="Bzip2_CopyDLLs_v120" AfterTargets="Build" Condition="'$(PlatformToolset)' == 'v120'">
-        <Copy SourceFiles="$(MSBuildThisFileDirectory)\bin\$(Platform)\$(Configuration)\bzip2$(_Bzip2LibSuffix).dll"
+
+    <Target Name="_v120_Bzip2Propertfies">
+        <CreateProperty Value="MT-Debug" Condition="'%(ClCompile.RuntimeLibrary)' == 'MultiThreadedDebug'">
+            <Output TaskParameter="Value" PropertyName="_Bzip2Configuration" />
+        </CreateProperty>
+
+        <CreateProperty Value="MT-Release" Condition="'%(ClCompile.RuntimeLibrary)' == 'MultiThreaded'">
+            <Output TaskParameter="Value" PropertyName="_Bzip2Configuration" />
+        </CreateProperty>
+
+        <CreateProperty Value="Debug" Condition="'%(ClCompile.RuntimeLibrary)' == 'MultiThreadedDebugDLL'">
+            <Output TaskParameter="Value" PropertyName="_Bzip2Configuration" />
+        </CreateProperty>
+
+        <CreateProperty Value="Release" Condition="'%(ClCompile.RuntimeLibrary)' == 'MultiThreadedDLL'">
+            <Output TaskParameter="Value" PropertyName="_Bzip2Configuration" />
+        </CreateProperty>
+
+        <CreateProperty Value="d" Condition="'%(ClCompile.RuntimeLibrary)' == 'MultiThreadedDebug'">
+            <Output TaskParameter="Value" PropertyName="_Bzip2LibSuffix" />
+        </CreateProperty>
+
+        <CreateProperty Value="d" Condition="'%(ClCompile.RuntimeLibrary)' == 'MultiThreadedDebugDLL'">
+            <Output TaskParameter="Value" PropertyName="_Bzip2LibSuffix" />
+        </CreateProperty>
+    </Target>
+
+    <Target Name="_v120_Bzip2Link" BeforeTargets="Link" Condition="'$(PlatformToolset)' == 'v120'" DependsOnTargets="_v120_Bzip2Propertfies">
+        <ItemGroup>
+            <Link>
+                <AdditionalDependencies>libbz2$(_Bzip2LibSuffix).lib;%(AdditionalDependencies)</AdditionalDependencies>
+                <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)lib\$(Platform)\$(_Bzip2Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+            </Link>
+        </ItemGroup>
+    </Target>
+
+    <Target Name="Bzip2_CopyDLLs_v120" AfterTargets="Build" Condition="'$(PlatformToolset)' == 'v120'" DependsOnTargets="_v120_Bzip2Propertfies">
+        <Copy SourceFiles="$(MSBuildThisFileDirectory)\bin\$(Platform)\$(_Bzip2Configuration)\bzip2$(_Bzip2LibSuffix).dll"
               DestinationFolder="$(OutDir)"
               SkipUnchangedFiles="true"/>
-        <Copy SourceFiles="$(MSBuildThisFileDirectory)\bin\$(Platform)\$(Configuration)\bzip2$(_Bzip2LibSuffix).pdb"
+        <Copy SourceFiles="$(MSBuildThisFileDirectory)\bin\$(Platform)\$(_Bzip2Configuration)\bzip2$(_Bzip2LibSuffix).pdb"
               DestinationFolder="$(OutDir)"
               SkipUnchangedFiles="true"/>
     </Target>
-    <Target Name="Bzip2_RemoveDlls_v120" BeforeTargets="Clean" Condition="'$(PlatformToolset)' == 'v120'">
+
+    <Target Name="Bzip2_RemoveDlls_v120" BeforeTargets="Clean" Condition="'$(PlatformToolset)' == 'v120'" DependsOnTargets="_v120_Bzip2Propertfies">
         <Delete Files="$(OutDir)\bzip2$(_Bzip2LibSuffix).dll"/>
+        <Delete Files="$(OutDir)\bzip2$(_Bzip2LibSuffix).pdb"/>
     </Target>
 </Project>

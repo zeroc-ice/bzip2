@@ -50,6 +50,18 @@
       <Projects Include="bzip2.vcxproj">
         <Properties>Configuration=Release;Platform=x64;DefaultPlatformToolset=$(DefaultPlatformToolset)</Properties>
       </Projects>
+      <Projects Include="bzip2.vcxproj">
+        <Properties>Configuration=MT-Debug;Platform=Win32;DefaultPlatformToolset=$(DefaultPlatformToolset)</Properties>
+      </Projects>
+      <Projects Include="bzip2.vcxproj">
+        <Properties>Configuration=MT-Debug;Platform=x64;DefaultPlatformToolset=$(DefaultPlatformToolset)</Properties>
+      </Projects>
+      <Projects Include="bzip2.vcxproj">
+        <Properties>Configuration=MT-Release;Platform=Win32;DefaultPlatformToolset=$(DefaultPlatformToolset)</Properties>
+      </Projects>
+      <Projects Include="bzip2.vcxproj">
+        <Properties>Configuration=MT-Release;Platform=x64;DefaultPlatformToolset=$(DefaultPlatformToolset)</Properties>
+      </Projects>
     </ItemGroup>
 
     <Target Name="Build" DependsOnTargets="GetNuget">
@@ -66,8 +78,7 @@
         <PackageDirectory>bzip2.$(DefaultPlatformToolset)</PackageDirectory>
     </PropertyGroup>
 
-    <Target Name="NugetPack"
-            DependsOnTargets="Build">
+    <Target Name="NugetPack" DependsOnTargets="Build">
             <RemoveDir Directories="$(PackageDirectory)" />
             <MSBuild Projects="bzip2.nuget.targets"
                      Properties="Configuration=Debug;Platform=Win32;PackageDirectory=$(PackageDirectory);DefaultPlatformToolset=$(DefaultPlatformToolset)" />
@@ -77,6 +88,16 @@
                      Properties="Configuration=Release;Platform=Win32;PackageDirectory=$(PackageDirectory);DefaultPlatformToolset=$(DefaultPlatformToolset)" />
             <MSBuild Projects="bzip2.nuget.targets"
                      Properties="Configuration=Release;Platform=x64;PackageDirectory=$(PackageDirectory);DefaultPlatformToolset=$(DefaultPlatformToolset)" />
+
+            <MSBuild Projects="bzip2.nuget.targets"
+                     Properties="Configuration=MT-Debug;Platform=Win32;PackageDirectory=$(PackageDirectory);DefaultPlatformToolset=$(DefaultPlatformToolset)" />
+            <MSBuild Projects="bzip2.nuget.targets"
+                     Properties="Configuration=MT-Debug;Platform=x64;PackageDirectory=$(PackageDirectory);DefaultPlatformToolset=$(DefaultPlatformToolset)" />
+            <MSBuild Projects="bzip2.nuget.targets"
+                     Properties="Configuration=MT-Release;Platform=Win32;PackageDirectory=$(PackageDirectory);DefaultPlatformToolset=$(DefaultPlatformToolset)" />
+            <MSBuild Projects="bzip2.nuget.targets"
+                     Properties="Configuration=MT-Release;Platform=x64;PackageDirectory=$(PackageDirectory);DefaultPlatformToolset=$(DefaultPlatformToolset)" />
+
             <Copy SourceFiles="..\bzlib.h"
                   DestinationFolder="$(PackageDirectory)\build\native\include" />
             <Copy SourceFiles="README.$(DefaultPlatformToolset).md"
