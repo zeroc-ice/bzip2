@@ -34,6 +34,10 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <!-- Visual Studio 2010 doesn't set DefaultPlatformToolset -->
+  <PropertyGroup>
+    <DefaultPlatformToolset Condition="'$(VisualStudioVersion)' == '10.0' And  '$(DefaultPlatformToolset)' == ''">v100</DefaultPlatformToolset>
+  </PropertyGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F22D082B-B83C-4DE1-AB1E-E82006982C8C}</ProjectGuid>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
@@ -158,7 +162,7 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <DebugInformationFormat Condition="'$(DefaultPlatformToolset)' != 'v100'">ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <ImportLibrary>$(OutDir)libbz2.lib</ImportLibrary>
@@ -169,7 +173,7 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ProgramDataBaseFileName>$(OutDir)$(TargetName).pdb</ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <DebugInformationFormat Condition="'$(DefaultPlatformToolset)' != 'v100'">ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <ImportLibrary>$(OutDir)libbz2.lib</ImportLibrary>
@@ -191,7 +195,7 @@
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(DefaultPlatformToolset)'=='v120'">
+  <ItemDefinitionGroup Condition="'$(DefaultPlatformToolset)'=='v120' or '$(DefaultPlatformToolset)'=='v100'">
     <Link>
       <GenerateDebugInformation>Yes</GenerateDebugInformation>
     </Link>
