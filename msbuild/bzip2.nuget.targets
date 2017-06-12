@@ -3,7 +3,7 @@
         <DLLs Include="$(MSBuildThisFileDirectory)$(DefaultPlatformToolset)\$(Platform)\$(Configuration)\*.dll" />
         <Libraries Include="$(MSBuildThisFileDirectory)$(DefaultPlatformToolset)\$(Platform)\$(Configuration)\*.lib" />
         <PDBs Include="$(MSBuildThisFileDirectory)$(DefaultPlatformToolset)\$(Platform)\$(Configuration)\*.pdb"
-              Excludes="*-objs.pdb" />
+              Exclude="*-objs.pdb" />
     </ItemGroup>
 
     <!-- Copy required files to the package specific directories -->
