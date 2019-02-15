@@ -1,8 +1,11 @@
 msbuild/.vs/
+msbuild/bzip2.v142/
 msbuild/bzip2.v141/
 msbuild/bzip2.v140/
 msbuild/bzip2.v120/
 msbuild/nuget.exe
+msbuild/v142/
 msbuild/v141/
 msbuild/v140/
 msbuild/v120/
+*~
