@@ -194,7 +194,7 @@
       <GenerateDebugInformation>Debug</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(DefaultPlatformToolset)'=='v141' OR '$(DefaultPlatformToolset)'=='v142'">
+  <ItemDefinitionGroup Condition="'$(DefaultPlatformToolset)'=='v141' OR '$(DefaultPlatformToolset)'=='v142' OR '$(DefaultPlatformToolset)'=='v143'">
     <Link>
       <FullProgramDatabaseFile>true</FullProgramDatabaseFile>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
